@@ -1,9 +1,18 @@
+'use client';
+
 import { Tool } from '@/data/tools';
 import { Badge } from './Badge';
+import { useFilter } from './ToolsFilter';
 
 export function Card({ tool }: { tool: Tool }) {
+  const { isVisible } = useFilter();
+
+  if (!isVisible(tool.badges)) {
+    return null;
+  }
+
   return (
-    <div className="bg-surface border border-border rounded-[10px] p-6 transition-colors hover:border-[#3f3f46]">
+    <div className="bg-surface border border-border rounded-[10px] p-6 transition-colors hover:border-text-muted/30">
       <div className="text-base font-semibold mb-1.5 flex items-center gap-2 flex-wrap">
         {tool.url ? (
           <a href={tool.url} target="_blank" rel="noopener noreferrer">

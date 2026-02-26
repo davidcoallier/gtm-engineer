@@ -16,7 +16,14 @@ export const buildPrompts: BuildPrompt[] = [
     difficulty: "intermediate",
     estimatedTime: "15-20 min",
     tags: ["SEO", "AI Discovery", "Analysis"],
-    prompt: `Create a Next.js app that receives a URL and analyzes it for GEO (Generative Engine Optimization). It should check for:
+    prompt: `Build a Next.js app that analyzes any URL for GEO (Generative Engine Optimization) readiness.
+
+Start by confirming the approach:
+- Should we fetch URLs server-side (API route) or client-side? Server-side is more reliable but needs CORS handling.
+- Do you want me to use a specific fetching library (got, axios) or stick with native fetch?
+- Should we cache results to avoid re-scanning the same URL?
+
+Once confirmed, build a tool that checks for:
 
 AI Discovery Files:
 - llms.txt and llms-full.txt presence
@@ -51,9 +58,16 @@ Display results with a score ring, color-coded pass/fail/warning statuses, and r
     difficulty: "intermediate",
     estimatedTime: "20-30 min",
     tags: ["Scoring", "ICP", "Lead Qualification"],
-    prompt: `Build a Next.js app for ICP (Ideal Customer Profile) scoring:
+    prompt: `Build a Google Apps Script that scores companies against my ICP directly in Google Sheets.
 
-1. Let users define their ICP criteria:
+Before writing code, let's define my ICP together:
+1. Ask me about my ideal company size, revenue, industries, and tech stack
+2. Ask what disqualifiers should be instant red flags
+3. Confirm whether I want to use Claude API for nuanced scoring, or keep it rule-based
+
+Then build a script that:
+
+1. Reads ICP criteria from a "Config" sheet:
    - Company size (employee count ranges)
    - Revenue ranges
    - Industries (include/exclude)
@@ -61,22 +75,24 @@ Display results with a score ring, color-coded pass/fail/warning statuses, and r
    - Geography
    - Custom criteria (free text)
 
-2. Accept CSV upload with company data or manual entry
+2. Scores companies from a "Companies" sheet with columns like:
+   - Company name, domain, employee count, revenue, industry, tech stack, location
 
-3. For each company, use Claude API to:
-   - Score 0-100 on ICP fit
-   - Explain the reasoning
-   - Flag any red flags or green flags
-   - Suggest personalization angles
+3. For each company, add columns:
+   - Score (0-100)
+   - Reasoning (1-2 sentences)
+   - Red flags / Green flags
+   - Personalization angle
 
-4. Display results in a sortable table with:
-   - Score badge (color-coded)
-   - Expandable reasoning
-   - Export to CSV
+4. Add a custom menu:
+   - "Score selected rows"
+   - "Score all unscored"
+   - "Re-score all"
 
-5. Store ICP criteria in localStorage so users don't have to re-enter
+5. Conditional formatting:
+   - Green for 70+, yellow for 40-69, red for <40
 
-Use Tailwind with a clean dark UI. Include a sample ICP template for B2B SaaS.`
+Include instructions for setting up the Config sheet.`
   },
   {
     id: "first-line-generator",
@@ -85,27 +101,31 @@ Use Tailwind with a clean dark UI. Include a sample ICP template for B2B SaaS.`
     difficulty: "beginner",
     estimatedTime: "10-15 min",
     tags: ["Email", "Personalization", "Outreach"],
-    prompt: `Create a simple Next.js app for generating personalized cold email first lines:
+    prompt: `Build a Python CLI tool for generating personalized cold email first lines.
 
-Input options:
-1. LinkedIn profile URL (scrape with Firecrawl or similar)
-2. Manual entry: Name, Title, Company, Recent news/activity
+Before you start coding, ask me:
+- Do I want to use Firecrawl for LinkedIn scraping, or should we keep it simple with manual input only?
+- Should outputs go to stdout, or would I prefer a local JSON file for easy copy-paste?
 
-Use Claude API to generate 5 different first lines:
+Once we've agreed on the approach, build a CLI that:
+
+Takes input via flags:
+- --name, --title, --company, --news (manual entry)
+- --url (optional LinkedIn URL if we're using Firecrawl)
+- --tone (casual/professional/bold, default: professional)
+
+Uses Claude API to generate 5 first lines:
 1. Recent company news angle
 2. Role/responsibility angle
 3. Shared connection or interest angle
 4. Industry trend angle
 5. Direct value proposition angle
 
-For each line, show:
+Output for each line:
 - The line itself
 - Why it works (1 sentence)
-- Copy button
 
-Include a toggle for tone: Casual / Professional / Bold
-
-Store API key in environment variable. Dark minimal UI.`
+Use environment variable for API key. Include a --help with examples.`
   },
   {
     id: "company-researcher",
@@ -114,11 +134,18 @@ Store API key in environment variable. Dark minimal UI.`
     difficulty: "intermediate",
     estimatedTime: "25-35 min",
     tags: ["Research", "Account Intelligence", "Enrichment"],
-    prompt: `Build an account research agent in Next.js:
+    prompt: `Build an account research agent as a Python script I can run from the terminal or integrate into other tools.
 
-Input: Company name or domain
+Let's scope this together first:
+1. What APIs do I have access to? (Perplexity, Firecrawl, BuiltWith, or just Claude + web search?)
+2. Do I want output as Markdown, JSON, or both?
+3. Should it cache results to avoid re-researching the same company?
 
-Use Perplexity API or web search + Claude to compile:
+After we've clarified, build a CLI tool that:
+
+Takes input: Company name or domain (positional arg or --company flag)
+
+Compiles research using available APIs:
 
 1. Company Overview
    - What they do (1-2 sentences)
@@ -147,7 +174,11 @@ Use Perplexity API or web search + Claude to compile:
 6. Conversation Starters
    - 3 specific, non-generic openers
 
-Display as a clean report with sections. Include "Copy as Markdown" and "Copy as JSON" buttons for piping into other tools.`
+Output options:
+--format md (default) | --format json
+--output filename (optional, otherwise stdout)
+
+Include --help with usage examples.`
   },
   {
     id: "cold-email-validator",
@@ -156,23 +187,25 @@ Display as a clean report with sections. Include "Copy as Markdown" and "Copy as
     difficulty: "beginner",
     estimatedTime: "10-15 min",
     tags: ["Email", "Deliverability", "Validation"],
-    prompt: `Create a cold email validator in Next.js:
+    prompt: `Build a Google Apps Script that validates cold emails directly in Google Sheets.
 
-Input: Email subject + body text
+First, let's plan this together. Ask me:
+- Should the script run on a single cell, or scan a column of emails?
+- Do I want the analysis in adjacent columns, or as a sidebar?
+- Should it use Claude API for the "improved version" suggestions, or keep it rule-based only?
 
-Check for:
+After we align, create a script that:
+
+Checks for:
 
 1. Spam Triggers
    - Spammy words (free, guaranteed, act now, etc.)
    - Excessive punctuation or caps
    - Too many links
-   - Image-heavy (flag if mentioned)
 
 2. Deliverability Risks
    - Email length (flag if >150 words)
-   - HTML vs plain text indicators
    - Tracking pixel mentions
-   - Unsubscribe link presence
 
 3. Reply Rate Factors
    - Personalization tokens present
@@ -185,13 +218,12 @@ Check for:
    - First line strength
    - Mobile preview (first 40 chars)
 
-Display results as:
+Output columns:
 - Overall score (0-100)
-- Red/yellow/green flags
-- Specific suggestions for each issue
-- "Fixed" version with Claude's improvements
+- Issues (comma-separated flags)
+- Suggestions
 
-Dark UI, instant analysis on paste.`
+Include a custom menu to run the validator on selected rows.`
   },
   {
     id: "linkedin-post-generator",
@@ -200,19 +232,26 @@ Dark UI, instant analysis on paste.`
     difficulty: "beginner",
     estimatedTime: "10-15 min",
     tags: ["Content", "LinkedIn", "Social"],
-    prompt: `Build a LinkedIn post generator in Next.js:
+    prompt: `Build a Raycast extension for generating LinkedIn posts.
 
-Input:
+Let's plan the UX first. Confirm with me:
+- Should it open as a form view (fill in fields) or a simple text input?
+- Do I want the 3 variations shown in a list to pick from, or all copied to clipboard?
+- Should it remember my last used tone preference?
+
+Once confirmed, build an extension that:
+
+Takes input:
 - Topic or insight (required)
 - Optional: Supporting data or story
 - Tone: Founder voice / Thought leader / Casual
 
-Generate 3 variations using Claude:
+Generates 3 variations using Claude API:
 
 1. Contrarian Take
    - Starts with challenging conventional wisdom
    - Short punchy sentences
-   - Line breaks, not paragraphs
+   - Line breaks for readability
 
 2. Story-Driven
    - Opens with a personal anecdote
@@ -224,15 +263,12 @@ Generate 3 variations using Claude:
    - Breaks down the implications
    - Ends with a question
 
-For each post:
+For each post show:
 - Character count
-- Estimated read time
 - Hook strength rating (1-5)
-- Copy button
-- Preview of how it'll look (with line breaks)
+- Action to copy to clipboard
 
-Include toggle for adding hashtags (on/off).
-Dark UI, show all 3 side by side on desktop.`
+Store API key in Raycast preferences. Include hashtag toggle preference.`
   },
   {
     id: "objection-handler",
@@ -241,7 +277,14 @@ Dark UI, show all 3 side by side on desktop.`
     difficulty: "beginner",
     estimatedTime: "10-15 min",
     tags: ["Sales", "Cold Calling", "Objections"],
-    prompt: `Create a sales objection handler in Next.js:
+    prompt: `Build a simple Next.js app for handling sales objections.
+
+Before building, walk me through your plan:
+1. Show me the component structure you're thinking
+2. Confirm the UI layout (form on left, responses on right? Single column?)
+3. Ask if I have specific objections I want pre-loaded
+
+Then build a tool where:
 
 Input:
 - The objection (e.g., "We already have a solution")
@@ -273,14 +316,14 @@ For each framework:
 - Why it works
 - When to use it
 
-Include a library of common objections:
+Include a library of common objections (editable):
 - "Not interested"
 - "Send me an email"
 - "We don't have budget"
 - "We're locked into a contract"
 - "Call me next quarter"
 
-Dark UI. Let users save their best responses to localStorage.`
+Dark UI. Save custom objections to localStorage.`
   },
   {
     id: "competitive-intel",
@@ -289,40 +332,40 @@ Dark UI. Let users save their best responses to localStorage.`
     difficulty: "advanced",
     estimatedTime: "30-40 min",
     tags: ["Competitive Intel", "Sales Enablement", "Research"],
-    prompt: `Build a competitive battle card generator in Next.js:
+    prompt: `Build a competitive battle card generator in Next.js.
+
+This is a multi-step build. Let's plan it properly:
+
+1. First, show me your proposed file structure and key components
+2. Ask me which competitors I want to pre-load (if any)
+3. Confirm: do I have Perplexity API access, or should we use Claude with web search?
+4. Ask if I want PDF export (requires additional library) or just Markdown/HTML
+
+Once we've aligned on scope, build a tool that:
 
 Input:
 - Competitor name/URL
 - Your product name (for comparison)
 - Your key differentiators
 
-Use Perplexity API or web search + Claude to generate:
+Generates using available APIs:
 
 1. Competitor Overview
-   - What they do
-   - Target market
-   - Pricing model (if public)
-   - Key customers
+   - What they do, target market, pricing model, key customers
 
 2. Positioning
-   - Their main message
-   - How they describe themselves
-   - Primary use cases
+   - Their main message, how they describe themselves, primary use cases
 
 3. Strengths
-   - What they're genuinely good at
-   - Where they win deals
+   - What they're genuinely good at, where they win deals
    - Customer praise themes (from G2, Capterra)
 
 4. Weaknesses
-   - Known gaps
-   - Customer complaints themes
-   - Where they lose deals
+   - Known gaps, customer complaint themes, where they lose deals
 
 5. Head-to-Head
    - Feature comparison table
-   - When to choose them vs us
-   - When to choose us vs them
+   - When to choose them vs us / us vs them
 
 6. Objection Handling
    - "But [Competitor] has X"
@@ -332,9 +375,8 @@ Use Perplexity API or web search + Claude to generate:
 
 7. Landmines
    - Questions to plant that expose their weaknesses
-   - Discovery questions that favor you
 
-Display as a printable/shareable card. Include "Export as PDF" and "Copy as Markdown".`
+Display as a printable card. Dark UI. Include export options we agreed on.`
   },
   {
     id: "meeting-prep",
@@ -343,25 +385,30 @@ Display as a printable/shareable card. Include "Export as PDF" and "Copy as Mark
     difficulty: "intermediate",
     estimatedTime: "20-25 min",
     tags: ["Sales", "Research", "Meetings"],
-    prompt: `Create a meeting prep tool in Next.js:
+    prompt: `Build a meeting prep CLI tool in Python that I can run before any sales call.
 
-Input:
-- Company name/domain
-- Meeting type: Discovery / Demo / Negotiation / QBR
-- Attendee names and titles (optional)
-- Your objective for the meeting
+Let's design this for my workflow:
+1. Ask me what CRM I use (if any) — can we pull meeting context from there?
+2. Should output be terminal-formatted, Markdown file, or both?
+3. Do I want a --quick mode that skips attendee research?
 
-Generate a one-page brief:
+Then build a CLI that:
+
+Input (via flags):
+- --company (name or domain)
+- --type (discovery / demo / negotiation / qbr)
+- --attendees (comma-separated "Name:Title" pairs, optional)
+- --objective (your goal for the meeting)
+
+Generates a one-page brief:
 
 1. Company Snapshot
-   - What they do
-   - Size, stage, recent news
+   - What they do, size, stage, recent news
    - Why they might need you
 
 2. Attendee Intel (if provided)
    - Role and likely priorities
-   - LinkedIn headline
-   - Recent posts or activity
+   - LinkedIn headline, recent posts/activity
    - Potential rapport builders
 
 3. Meeting Game Plan
@@ -373,19 +420,15 @@ Generate a one-page brief:
 4. Likely Questions From Them
    - Based on their stage/industry
    - How to answer each
-   - What to avoid saying
 
 5. Your Talking Points
    - Tailored to their situation
    - Relevant case studies to mention
-   - Specific numbers to use
 
 6. Next Step Options
-   - If meeting goes well
-   - If they're hesitant
-   - If they have objections
+   - If meeting goes well / hesitant / objections
 
-Display as a clean, scannable brief. "Print" button for taking into meetings. Dark UI.`
+Output to stdout in readable format. Support --output filename.md for file export.`
   },
   {
     id: "signal-monitor",
@@ -394,50 +437,37 @@ Display as a clean, scannable brief. "Print" button for taking into meetings. Da
     difficulty: "advanced",
     estimatedTime: "45-60 min",
     tags: ["Signals", "Intent Data", "Monitoring"],
-    prompt: `Build a buying signal monitoring dashboard in Next.js with Supabase backend:
+    prompt: `Build a buying signal monitoring system. This is a bigger project, so let's plan it carefully.
 
-1. Signal Configuration
-   Let users set up monitors for:
-   - Job postings (keywords, titles, departments)
-   - Technology changes (added/removed tools)
-   - Funding rounds (amount, stage)
-   - News mentions (keywords, topics)
-   - Leadership changes
-   - Company growth (employee count changes)
+Before any code, walk me through:
+1. Architecture overview — what's the tech stack you recommend? (Next.js + Supabase? Python backend + simple frontend? n8n for signal collection?)
+2. Which signal sources should we prioritize first? (Let's start with 2-3, not all of them)
+3. Do I need user auth, or is this single-user for now?
+4. Should signal collection run on a cron, or be triggered manually?
 
-2. Account Watchlist
-   - Add companies to watch
-   - Import from CSV
-   - Tag accounts (prospect, customer, competitor)
+After we agree on scope, build in phases:
 
-3. Signal Detection
-   - Use Google Alerts RSS, LinkedIn job scraping, Crunchbase API, or web search
-   - Score signals by relevance (high/medium/low)
-   - Dedupe similar signals
+Phase 1: Core
+- Account watchlist (add companies, import CSV, tag as prospect/customer/competitor)
+- Basic signal config (pick 2-3 sources to start)
+- Simple dashboard showing today's signals
 
-4. Dashboard
-   - Today's signals (sorted by priority)
-   - Signal trends over time
-   - Accounts with most signals
-   - Filter by signal type
+Phase 2: Signal Sources (implement what we agreed)
+- Job postings (keywords, titles, departments)
+- Technology changes (added/removed tools)
+- Funding rounds (amount, stage)
+- News mentions (keywords, topics)
+- Leadership changes
 
-5. Actions
-   - Mark as "Reached out"
-   - Snooze account
-   - Add notes
-   - Generate outreach from signal
+Phase 3: Actions & Workflow
+- Mark as "Reached out" / Snooze / Add notes
+- Score signals by relevance (high/medium/low)
+- Filter and search
 
-6. Daily Digest
-   - Email summary option
-   - Top 10 signals of the day
-   - Accounts to prioritize
+Phase 4: Daily Digest (if we get there)
+- Email summary option
+- Top 10 signals of the day
 
-Use Supabase for:
-- User accounts
-- Watchlist storage
-- Signal history
-- User preferences
-
-Modern dashboard UI with charts. Real-time updates via Supabase subscriptions.`
+Let's scope Phase 1 first and get that working before expanding.`
   }
 ];

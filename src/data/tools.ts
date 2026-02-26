@@ -452,6 +452,14 @@ export const signalTools: Tool[][] = [
       badges: ["paid"],
       description: "See which companies research your category and competitors on G2. High-quality signal — someone is literally comparing tools in your space."
     }
+  ],
+  [
+    {
+      name: "Sumble",
+      url: "https://sumble.com",
+      badges: ["paid", "new"],
+      description: "AI-powered sales intelligence from the Kaggle founders. Tracks tech stacks, projects, and org charts across 2.6M+ companies. Surfaces buyer intent signals from job boards, filings, and social. Clean data, daily updates."
+    }
   ]
 ];
 

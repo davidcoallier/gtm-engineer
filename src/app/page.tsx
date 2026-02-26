@@ -3,6 +3,7 @@ import { MethodCard, MethodGrid } from '@/components/MethodCard';
 import { Section, SectionLabel, SubLabel, Divider, Callout } from '@/components/Section';
 import { PromptGrid } from '@/components/PromptCard';
 import { Nav } from '@/components/Nav';
+import { FilterProvider } from '@/components/ToolsFilter';
 import {
   orchestrationTools,
   aiTools,
@@ -50,11 +51,15 @@ function SignalSection({ tools }: { tools: Tool[][] }) {
   return (
     <CardGrid>
       {tools.map((row, i) => (
-        <StackRow key={i}>
-          {row.map((tool) => (
-            <Card key={tool.name} tool={tool} />
-          ))}
-        </StackRow>
+        row.length === 1 ? (
+          <Card key={i} tool={row[0]} />
+        ) : (
+          <StackRow key={i}>
+            {row.map((tool) => (
+              <Card key={tool.name} tool={tool} />
+            ))}
+          </StackRow>
+        )
       ))}
     </CardGrid>
   );
@@ -98,39 +103,42 @@ export default function Home() {
           </Section>
         </section>
 
-        {/* 02: Core Stack */}
-        <section id="stack" className="scroll-mt-20">
-          <Section>
-            <SectionLabel number="02" label="The Core Stack" color="green" />
-            <ToolSection category={orchestrationTools} />
-            <ToolSection category={aiTools} />
-            <ToolSection category={codeTools} />
-            <ToolSection category={enrichmentTools} />
-            <ToolSection category={scrapingTools} />
-            <ToolSection category={backendTools} />
-            <ToolSection category={crmTools} />
-            <ToolSection category={landingTools} />
-            <ToolSection category={analyticsTools} />
-          </Section>
-        </section>
+        {/* Filter + Tool Sections */}
+        <FilterProvider>
+          {/* 02: Core Stack */}
+          <section id="stack" className="scroll-mt-20">
+            <Section>
+              <SectionLabel number="02" label="The Core Stack" color="green" />
+              <ToolSection category={orchestrationTools} />
+              <ToolSection category={aiTools} />
+              <ToolSection category={codeTools} />
+              <ToolSection category={enrichmentTools} />
+              <ToolSection category={scrapingTools} />
+              <ToolSection category={backendTools} />
+              <ToolSection category={crmTools} />
+              <ToolSection category={landingTools} />
+              <ToolSection category={analyticsTools} />
+            </Section>
+          </section>
 
-        {/* 03: Signal Sources */}
-        <section id="signals" className="scroll-mt-20">
-          <Section>
-            <SectionLabel number="03" label="Signal Sources" color="amber" />
-            <SignalSection tools={signalTools} />
-          </Section>
-        </section>
+          {/* 03: Signal Sources */}
+          <section id="signals" className="scroll-mt-20">
+            <Section>
+              <SectionLabel number="03" label="Signal Sources" color="amber" />
+              <SignalSection tools={signalTools} />
+            </Section>
+          </section>
 
-        {/* 04: Outreach & Distribution */}
-        <section id="outreach" className="scroll-mt-20">
-          <Section>
-            <SectionLabel number="04" label="Outreach & Distribution" color="pink" />
-            <ToolSection category={coldEmailTools} />
-            <ToolSection category={multiChannelTools} />
-            <ToolSection category={adsTools} />
-          </Section>
-        </section>
+          {/* 04: Outreach & Distribution */}
+          <section id="outreach" className="scroll-mt-20">
+            <Section>
+              <SectionLabel number="04" label="Outreach & Distribution" color="pink" />
+              <ToolSection category={coldEmailTools} />
+              <ToolSection category={multiChannelTools} />
+              <ToolSection category={adsTools} />
+            </Section>
+          </section>
+        </FilterProvider>
 
         <Divider />
 
