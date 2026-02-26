@@ -188,6 +188,15 @@ export default function Home() {
                 GTM tools you can build yourself in 15-60 minutes using <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Claude Code</a>. Click any card to reveal the prompt, then paste it into your terminal.
               </p>
             </div>
+
+            {/* Callout */}
+            <div className="mb-8 p-4 rounded-lg bg-purple/10 border border-purple/20">
+              <p className="text-sm text-text-dim">
+                <span className="text-purple font-semibold">These are starting points, not scripts.</span>{' '}
+                The prompts below are designed to spark ideas for what you can build. Modify them, combine them, or use them as inspiration for something completely different. The best GTM tools are the ones you build for your specific workflow.
+              </p>
+            </div>
+
             <PromptGrid prompts={buildPrompts} />
           </Section>
         </section>
