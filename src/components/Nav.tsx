@@ -3,13 +3,13 @@
 import { useState, useEffect } from 'react';
 
 const sections = [
-  { id: 'methodology', label: 'Methodology', number: '01' },
-  { id: 'stack', label: 'Stack', number: '02' },
-  { id: 'signals', label: 'Signals', number: '03' },
-  { id: 'outreach', label: 'Outreach', number: '04' },
-  { id: 'avoid', label: 'Avoid', number: '05' },
-  { id: 'start', label: 'Start', number: '06' },
-  { id: 'build', label: 'Build', number: '07' },
+  { id: 'methodology', label: 'Method' },
+  { id: 'stack', label: 'Stack' },
+  { id: 'signals', label: 'Signals' },
+  { id: 'outreach', label: 'Outreach' },
+  { id: 'avoid', label: 'Avoid' },
+  { id: 'start', label: 'First month' },
+  { id: 'build', label: 'Build' },
 ];
 
 export function Nav() {
@@ -47,20 +47,20 @@ export function Nav() {
         isScrolled ? 'bg-bg/95 backdrop-blur-sm border-b border-border' : 'bg-transparent'
       }`}
     >
-      <div className="max-w-[880px] mx-auto px-6">
+      <div className="max-w-[820px] mx-auto px-6">
         <div className="flex items-center justify-between h-14">
           <a href="#" className="font-semibold text-sm">
-            GTM Engineer
+            GTM Engineering
           </a>
-          <div className="flex items-center gap-1">
+          <div className="hidden sm:flex items-center gap-0.5">
             {sections.map((section) => (
               <a
                 key={section.id}
                 href={`#${section.id}`}
-                className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+                className={`px-2.5 py-1.5 text-[13px] border-b-2 transition-colors duration-200 ${
                   activeSection === section.id
-                    ? 'bg-surface-2 text-text'
-                    : 'text-text-muted hover:text-text hover:bg-surface'
+                    ? 'text-text font-medium border-accent'
+                    : 'text-text-muted border-transparent hover:text-text'
                 }`}
               >
                 {section.label}

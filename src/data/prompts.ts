@@ -12,7 +12,7 @@ export const buildPrompts: BuildPrompt[] = [
   {
     id: "geo-analyzer",
     title: "AI GEO Analyzer",
-    description: "A tool that scans any URL and checks for GEO (Generative Engine Optimization) readiness — llms.txt, JSON-LD schemas, AI crawler permissions, structured data, and more.",
+    description: "A tool that scans any URL and checks for GEO (Generative Engine Optimization) readiness: llms.txt, JSON-LD schemas, AI crawler permissions, structured data, and more.",
     difficulty: "intermediate",
     estimatedTime: "15-20 min",
     tags: ["SEO", "AI Discovery", "Analysis"],
@@ -388,7 +388,7 @@ Display as a printable card. Dark UI. Include export options we agreed on.`
     prompt: `Build a meeting prep CLI tool in Python that I can run before any sales call.
 
 Let's design this for my workflow:
-1. Ask me what CRM I use (if any) — can we pull meeting context from there?
+1. Ask me what CRM I use (if any), and whether we can pull meeting context from there
 2. Should output be terminal-formatted, Markdown file, or both?
 3. Do I want a --quick mode that skips attendee research?
 
@@ -440,7 +440,7 @@ Output to stdout in readable format. Support --output filename.md for file expor
     prompt: `Build a buying signal monitoring system. This is a bigger project, so let's plan it carefully.
 
 Before any code, walk me through:
-1. Architecture overview — what's the tech stack you recommend? (Next.js + Supabase? Python backend + simple frontend? n8n for signal collection?)
+1. Architecture overview: what tech stack do you recommend? (Next.js + Supabase? Python backend + simple frontend? n8n for signal collection?)
 2. Which signal sources should we prioritize first? (Let's start with 2-3, not all of them)
 3. Do I need user auth, or is this single-user for now?
 4. Should signal collection run on a cron, or be triggered manually?

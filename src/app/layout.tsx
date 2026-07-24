@@ -8,8 +8,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GTM Engineer — Start Here",
-  description: "A practical guide to AI-native go-to-market — the tools, the methodology, and the mindset.",
+  title: "GTM Engineering: Start Here",
+  description: "The tools worth using, the ones to skip, and how the work actually gets done. A practical guide to AI-native go-to-market.",
 };
 
 export default function RootLayout({

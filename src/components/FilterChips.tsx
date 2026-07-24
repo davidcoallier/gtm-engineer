@@ -2,14 +2,11 @@
 
 import { BadgeType } from '@/data/tools';
 
-const badgeConfig: { type: BadgeType; label: string; color: string }[] = [
-  { type: 'free', label: 'Free', color: 'bg-green/10 text-green border-green/30 hover:bg-green/20' },
-  { type: 'freemium', label: 'Freemium', color: 'bg-green/10 text-green border-green/30 hover:bg-green/20' },
-  { type: 'paid', label: 'Paid', color: 'bg-amber/10 text-amber border-amber/30 hover:bg-amber/20' },
-  { type: 'api', label: 'API', color: 'bg-text-muted/10 text-text-muted border-text-muted/30 hover:bg-text-muted/20' },
-  { type: 'core', label: 'Core', color: 'bg-accent/10 text-accent border-accent/30 hover:bg-accent/20' },
-  { type: 'new', label: 'New', color: 'bg-purple/10 text-purple border-purple/30 hover:bg-purple/20' },
-  { type: 'diy', label: 'DIY', color: 'bg-pink/10 text-pink border-pink/30 hover:bg-pink/20' },
+const filters: { type: BadgeType; label: string }[] = [
+  { type: 'free', label: 'Free' },
+  { type: 'freemium', label: 'Free tier' },
+  { type: 'paid', label: 'Paid' },
+  { type: 'core', label: 'Start here' },
 ];
 
 interface FilterChipsProps {
@@ -26,24 +23,20 @@ export function FilterChips({ selected, onChange }: FilterChipsProps) {
     }
   };
 
-  const clearAll = () => onChange([]);
-
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      <span className="text-xs text-text-muted font-medium mr-1">Filter:</span>
-      {badgeConfig.map(({ type, label, color }) => {
+    <div className="flex flex-wrap items-center gap-1.5">
+      <span className="text-xs text-text-muted mr-1.5">Show only:</span>
+      {filters.map(({ type, label }) => {
         const isSelected = selected.includes(type);
         return (
           <button
             key={type}
             onClick={() => toggle(type)}
-            className={`
-              px-3 py-1 text-xs font-medium rounded-full border transition-all
-              ${isSelected
-                ? color + ' ring-2 ring-offset-1 ring-offset-bg'
-                : 'bg-surface text-text-muted border-border hover:border-text-muted/50'
-              }
-            `}
+            className={`px-3 py-1 text-xs font-medium rounded-full border transition-colors ${
+              isSelected
+                ? 'bg-text text-bg border-text'
+                : 'bg-transparent text-text-dim border-border hover:border-text-muted'
+            }`}
           >
             {label}
           </button>
@@ -51,7 +44,7 @@ export function FilterChips({ selected, onChange }: FilterChipsProps) {
       })}
       {selected.length > 0 && (
         <button
-          onClick={clearAll}
+          onClick={() => onChange([])}
           className="px-2 py-1 text-xs text-text-muted hover:text-text transition-colors"
         >
           Clear

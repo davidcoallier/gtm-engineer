@@ -28,8 +28,10 @@ export function FilterProvider({ children }: { children: ReactNode }) {
 
   return (
     <FilterContext.Provider value={{ selectedBadges, isVisible }}>
-      <div className="sticky top-14 z-40 bg-bg/95 backdrop-blur-sm border-b border-border py-3 mb-8 -mx-6 px-6">
-        <FilterChips selected={selectedBadges} onChange={setSelectedBadges} />
+      <div className="sticky top-14 z-40 bg-bg/95 backdrop-blur-sm border-b border-border">
+        <div className="max-w-[820px] mx-auto px-6 py-3">
+          <FilterChips selected={selectedBadges} onChange={setSelectedBadges} />
+        </div>
       </div>
       {children}
     </FilterContext.Provider>

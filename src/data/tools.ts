@@ -1,4 +1,4 @@
-export type BadgeType = 'free' | 'paid' | 'freemium' | 'api' | 'core' | 'new' | 'diy';
+export type BadgeType = 'free' | 'freemium' | 'paid' | 'core';
 
 export interface Tool {
   name: string;
@@ -9,629 +9,534 @@ export interface Tool {
 
 export interface ToolCategory {
   label: string;
-  tools: Tool[][];
+  intro: string;
+  tools: Tool[];
 }
 
 export const orchestrationTools: ToolCategory = {
-  label: "Orchestration & Data Hub",
+  label: "Orchestration and data hub",
+  intro: "The centre of the stack. Everything else feeds into it or gets triggered from it.",
   tools: [
-    [
-      {
-        name: "Clay",
-        url: "https://clay.com",
-        badges: ["core"],
-        description: "The hub most GTM engineers build around. A programmable spreadsheet connected to 50+ data providers for enrichment, scoring, and routing. Treat it like a database + orchestration layer, not a CRM plugin."
-      }
-    ],
-    [
-      {
-        name: "n8n",
-        url: "https://n8n.io",
-        badges: ["free"],
-        description: "Visual workflow automation. The glue layer connecting signals → enrichment → scoring → outreach. Self-hostable, open source. The serious GTM engineer's choice."
-      },
-      {
-        name: "Make (Integromat)",
-        url: "https://make.com",
-        badges: ["freemium"],
-        description: "Managed alternative to n8n. Visual builder, massive integration library. Lower ceiling but faster to start. Good for non-technical GTM people building first automations."
-      }
-    ],
-    [
-      {
-        name: "Zapier",
-        url: "https://zapier.com",
-        badges: ["paid"],
-        description: "The original connector. Simpler than n8n/Make but more limited. Best for quick single-trigger automations. Most people outgrow it, but it's a valid starting point."
-      },
-      {
-        name: "Google Apps Script",
-        url: "https://developers.google.com/apps-script",
-        badges: ["free", "diy"],
-        description: "Before you buy anything — serious enrichment with just a Google Sheet and Apps Script. Call APIs, scrape data, build lookup functions. No dependencies, no monthly bill. The GTM engineer's gateway drug."
-      }
-    ]
+    {
+      name: "Clay",
+      url: "https://clay.com",
+      badges: ["freemium", "core"],
+      description: "The hub most GTM engineers build around. A programmable spreadsheet connected to 50+ data providers for enrichment, scoring and routing. Treat it like a database with an orchestration layer, not a CRM plugin."
+    },
+    {
+      name: "n8n",
+      url: "https://n8n.io",
+      badges: ["free"],
+      description: "Visual workflow automation and the glue between signals, enrichment, scoring and outreach. Open source and self-hostable, so there's no per-task pricing when your volume grows."
+    },
+    {
+      name: "Make (Integromat)",
+      url: "https://make.com",
+      badges: ["freemium"],
+      description: "Managed alternative to n8n with a huge integration library. Lower ceiling but faster to start. A good first automation tool if you don't want to host anything."
+    },
+    {
+      name: "Zapier",
+      url: "https://zapier.com",
+      badges: ["paid"],
+      description: "The original connector. Simpler than n8n or Make, more limited, and the pricing stings at volume. Fine for quick single-trigger automations. Most people outgrow it."
+    },
+    {
+      name: "Google Apps Script",
+      url: "https://developers.google.com/apps-script",
+      badges: ["free"],
+      description: "Before you buy anything, try a Google Sheet with Apps Script. You can call APIs, scrape data and build lookup functions with no dependencies and no monthly bill. It covers more than you'd think."
+    }
   ]
 };
 
 export const aiTools: ToolCategory = {
-  label: "AI & LLM Layer",
+  label: "AI and LLM layer",
+  intro: "You need at least one model API. This is what writes your research briefs, scores accounts and drafts your first lines.",
   tools: [
-    [
-      {
-        name: "Claude API",
-        url: "https://anthropic.com",
-        badges: ["api", "core"],
-        description: "Anthropic's model. Excellent at long-context research, nuanced writing, and structured data extraction. Account research, personalised outreach, ICP scoring, and building mini-apps via prompts."
-      },
-      {
-        name: "OpenAI / GPT API",
-        url: "https://openai.com",
-        badges: ["api"],
-        description: "The workhorse. Function calling for structured outputs, fine-tuning for domain tasks, vision for parsing screenshots and documents. Most integrations are built on this."
-      }
-    ],
-    [
-      {
-        name: "Perplexity API",
-        url: "https://perplexity.ai",
-        badges: ["api", "new"],
-        description: "Search-augmented LLM. Feed it a company name, get back real-time research with citations. Cuts out the \"search then summarise\" step. Brilliant for automated account research."
-      },
-      {
-        name: "Groq",
-        url: "https://groq.com",
-        badges: ["api", "free"],
-        description: "Ultra-fast LLM inference. When you need AI responses in milliseconds not seconds. Great for real-time scoring or enrichment in high-volume pipelines where latency matters."
-      }
-    ]
+    {
+      name: "Claude API",
+      url: "https://anthropic.com",
+      badges: ["paid", "core"],
+      description: "Anthropic's models. Strong at long-context research, structured data extraction and writing that doesn't read like a robot. Use it for account research, ICP scoring and personalised outreach."
+    },
+    {
+      name: "OpenAI / GPT API",
+      url: "https://openai.com",
+      badges: ["paid"],
+      description: "The other default. Function calling for structured outputs, fine-tuning for domain tasks, vision for parsing screenshots and documents. Most off-the-shelf integrations support it first."
+    },
+    {
+      name: "Perplexity API",
+      url: "https://perplexity.ai",
+      badges: ["paid"],
+      description: "Search built into the model. Feed it a company name, get back current research with citations. Removes the separate search-then-summarise step in automated account research."
+    },
+    {
+      name: "Groq",
+      url: "https://groq.com",
+      badges: ["free"],
+      description: "Very fast inference for open models. Use it when you need answers in milliseconds, like live scoring or enrichment inside high-volume pipelines."
+    }
   ]
 };
 
 export const codeTools: ToolCategory = {
-  label: "Code & Build Tools",
+  label: "Code and build tools",
+  intro: "The engineer part of the job. These let you ship your own dashboards, scrapers and internal tools without waiting on a product team.",
   tools: [
-    [
-      {
-        name: "Cursor",
-        url: "https://cursor.com",
-        badges: ["freemium", "core"],
-        description: "AI-native code editor. Describe what you want, get working code. Build dashboards, scrapers, internal tools, custom integrations without being a full-time developer. The tool that makes \"GTM Engineer\" possible."
-      },
-      {
-        name: "Windsurf",
-        url: "https://codeium.com/windsurf",
-        badges: ["free"],
-        description: "Cursor alternative. Same concept — AI-powered coding. Try both, commit to whichever clicks. The tool matters less than the habit of building your own things."
-      }
-    ],
-    [
-      {
-        name: "Claude Code",
-        url: "https://claude.ai/code",
-        badges: ["new", "diy"],
-        description: "Anthropic's CLI coding agent. Give it a task in your terminal, it writes and executes code across files. Scaffold entire projects — dashboards, scrapers, data pipelines — from a single description."
-      },
-      {
-        name: "Retool",
-        url: "https://retool.com",
-        badges: ["freemium"],
-        description: "Drag-and-drop internal tool builder. Connect to databases, APIs, spreadsheets. Build dashboards and admin panels without writing frontend code. Good for partner portals."
-      }
-    ],
-    [
-      {
-        name: "Replit",
-        url: "https://replit.com",
-        badges: ["freemium"],
-        description: "Browser-based IDE with AI agent. Spin up and deploy apps without local setup. Quick prototypes, webhook endpoints, and lightweight tools running in minutes."
-      },
-      {
-        name: "v0 by Vercel",
-        url: "https://v0.dev",
-        badges: ["free", "new"],
-        description: "Describe a UI, get a deployable React component. Spin up landing pages, dashboards, and forms at speed. Pairs well with the claim-testing methodology."
-      }
-    ]
+    {
+      name: "Cursor",
+      url: "https://cursor.com",
+      badges: ["freemium", "core"],
+      description: "AI code editor. Describe what you want, get working code. Build dashboards, scrapers and custom integrations without being a full-time developer. This is the tool that makes the role possible."
+    },
+    {
+      name: "Windsurf",
+      url: "https://codeium.com/windsurf",
+      badges: ["freemium"],
+      description: "Same idea as Cursor. Try both, keep whichever clicks. The habit of building your own tools matters more than the editor you pick."
+    },
+    {
+      name: "Claude Code",
+      url: "https://claude.ai/code",
+      badges: ["paid"],
+      description: "Anthropic's coding agent in your terminal. Give it a task and it plans, writes and runs code across your whole project. The best option for scaffolding a complete tool from one description."
+    },
+    {
+      name: "Retool",
+      url: "https://retool.com",
+      badges: ["freemium"],
+      description: "Drag-and-drop internal tools. Connect databases, APIs and spreadsheets, get dashboards and admin panels without writing frontend code. Good for partner portals."
+    },
+    {
+      name: "Replit",
+      url: "https://replit.com",
+      badges: ["freemium"],
+      description: "Browser IDE with an AI agent. No local setup, deploys in a click. Handy for quick prototypes, webhook endpoints and lightweight tools."
+    },
+    {
+      name: "v0 by Vercel",
+      url: "https://v0.dev",
+      badges: ["freemium"],
+      description: "Describe a UI, get a deployable React component. A fast way to spin up landing pages, dashboards and forms for claim testing."
+    }
   ]
 };
 
 export const enrichmentTools: ToolCategory = {
-  label: "Enrichment & Data Providers",
+  label: "Enrichment and data providers",
+  intro: "Turning a domain or a name into a full record: contact details, company data, tech stack.",
   tools: [
-    [
-      {
-        name: "Apollo.io",
-        url: "https://apollo.io",
-        badges: ["freemium"],
-        description: "Contact database + basic sequencing. 200M+ contacts. Generous free tier. Most GTM engineers use it as a data source piped into Clay rather than standalone."
-      },
-      {
-        name: "Hunter.io",
-        url: "https://hunter.io",
-        badges: ["freemium"],
-        description: "Email finder and verifier. Feed it a domain, get verified emails. Simple, reliable, API-friendly. Good for pipelines where you have company but not contact."
-      }
-    ],
-    [
-      {
-        name: "Clearbit (now HubSpot)",
-        url: "https://hubspot.com/products/crm/clearbit",
-        badges: ["paid"],
-        description: "Company and contact enrichment. Revenue, employee count, tech stack, industry. Was the gold standard, now bundled into HubSpot. API still works standalone."
-      },
-      {
-        name: "Dropcontact",
-        url: "https://dropcontact.com",
-        badges: ["paid"],
-        description: "GDPR-compliant email enrichment. Finds and verifies professional emails algorithmically — no database. Essential if you're operating in the EU and care about compliance."
-      }
-    ],
-    [
-      {
-        name: "People Data Labs",
-        url: "https://peopledatalabs.com",
-        badges: ["api"],
-        description: "Raw people and company data via API. 1.5B+ person profiles. For when you're building your own enrichment pipeline and want to go deeper than Clay's built-in providers."
-      },
-      {
-        name: "Lusha",
-        url: "https://lusha.com",
-        badges: ["freemium"],
-        description: "Direct dials and email addresses. Chrome extension for LinkedIn prospecting. Free tier gives a handful of credits — enough to test whether it's worth paying."
-      }
-    ],
-    [
-      {
-        name: "Snov.io",
-        url: "https://snov.io",
-        badges: ["freemium"],
-        description: "Email finder, verifier, and drip campaigns in one. Cheaper alternative to Apollo. Technology search feature useful for technographic prospecting."
-      },
-      {
-        name: "Prospeo",
-        url: "https://prospeo.io",
-        badges: ["paid"],
-        description: "Email finder with high accuracy. LinkedIn export tool pulls contact data from Sales Navigator searches in bulk. Good accuracy-to-cost ratio."
-      }
-    ]
+    {
+      name: "Apollo.io",
+      url: "https://apollo.io",
+      badges: ["freemium"],
+      description: "Contact database with 200M+ contacts and basic sequencing. The free tier is generous. Most people use it as a data source piped into Clay rather than on its own."
+    },
+    {
+      name: "Hunter.io",
+      url: "https://hunter.io",
+      badges: ["freemium"],
+      description: "Email finder and verifier. Give it a domain, get verified addresses back. Simple, reliable, and the API is easy to build on."
+    },
+    {
+      name: "Clearbit (now HubSpot)",
+      url: "https://hubspot.com/products/crm/clearbit",
+      badges: ["paid"],
+      description: "Company and contact enrichment: revenue, headcount, tech stack, industry. Was the gold standard, now bundled into HubSpot. The API still works on its own."
+    },
+    {
+      name: "Dropcontact",
+      url: "https://dropcontact.com",
+      badges: ["paid"],
+      description: "GDPR-compliant email enrichment. Finds and verifies professional emails algorithmically instead of from a stored database. Matters if you sell in the EU."
+    },
+    {
+      name: "People Data Labs",
+      url: "https://peopledatalabs.com",
+      badges: ["paid"],
+      description: "Raw people and company data over API, 1.5B+ person profiles. For building your own enrichment pipeline when Clay's built-in providers don't go deep enough."
+    },
+    {
+      name: "Lusha",
+      url: "https://lusha.com",
+      badges: ["freemium"],
+      description: "Direct dials and email addresses, with a Chrome extension for LinkedIn prospecting. The free credits are enough to test whether it's worth paying for in your market."
+    },
+    {
+      name: "Snov.io",
+      url: "https://snov.io",
+      badges: ["freemium"],
+      description: "Email finding, verification and drip campaigns in one, cheaper than Apollo. The technology search is useful for technographic prospecting."
+    },
+    {
+      name: "Prospeo",
+      url: "https://prospeo.io",
+      badges: ["paid"],
+      description: "Accurate email finder with a bulk export tool for Sales Navigator searches. Good accuracy for the price."
+    }
   ]
 };
 
 export const scrapingTools: ToolCategory = {
-  label: "Scraping & Data Extraction",
+  label: "Scraping and data extraction",
+  intro: "When the data you need isn't in any provider's database, you go and get it yourself.",
   tools: [
-    [
-      {
-        name: "Apify",
-        url: "https://apify.com",
-        badges: ["freemium"],
-        description: "Web scraping as a service. Pre-built scrapers for Google Maps, LinkedIn, TripAdvisor, hundreds more. When the signal you need doesn't have a SaaS product, build or rent the scraper."
-      },
-      {
-        name: "PhantomBuster",
-        url: "https://phantombuster.com",
-        badges: ["paid"],
-        description: "LinkedIn automation and scraping. Extract profiles from Sales Nav searches, auto-connect, auto-message. Use responsibly — LinkedIn rate limits are real. Best paired with Clay."
-      }
-    ],
-    [
-      {
-        name: "Captain Data",
-        url: "https://captaindata.co",
-        badges: ["paid"],
-        description: "Multi-source scraping + enrichment workflows. Chains LinkedIn scraping, email finding, and data cleaning into pipelines. More robust than PhantomBuster for complex workflows."
-      },
-      {
-        name: "Bardeen",
-        url: "https://bardeen.ai",
-        badges: ["free"],
-        description: "Browser automation via Chrome extension. Scrape any website, push to sheets/CRM, trigger workflows. Less code-heavy alternative to Apify for simple scraping."
-      }
-    ],
-    [
-      {
-        name: "Outscraper",
-        url: "https://outscraper.com",
-        badges: ["freemium"],
-        description: "Google Maps data extraction — reviews, popular times, contact info, competitor analysis. Feed it Place IDs, get structured data. Great for local market research and footfall."
-      },
-      {
-        name: "Firecrawl",
-        url: "https://firecrawl.dev",
-        badges: ["api", "new"],
-        description: "Turn any website into clean LLM-ready data. Crawl, scrape, convert to markdown. Ideal for feeding competitor pages, job boards, or news sites into your AI research pipeline."
-      }
-    ]
+    {
+      name: "Apify",
+      url: "https://apify.com",
+      badges: ["freemium"],
+      description: "Scraping as a service, with pre-built scrapers for Google Maps, LinkedIn, TripAdvisor and hundreds more. Rent the scraper before you build one."
+    },
+    {
+      name: "PhantomBuster",
+      url: "https://phantombuster.com",
+      badges: ["paid"],
+      description: "LinkedIn automation and scraping. Pulls profiles from Sales Navigator searches, auto-connects, auto-messages. LinkedIn's rate limits are real, so go easy. Pairs well with Clay."
+    },
+    {
+      name: "Captain Data",
+      url: "https://captaindata.co",
+      badges: ["paid"],
+      description: "Chains LinkedIn scraping, email finding and data cleaning into one pipeline. More robust than PhantomBuster for multi-step workflows."
+    },
+    {
+      name: "Bardeen",
+      url: "https://bardeen.ai",
+      badges: ["freemium"],
+      description: "Browser automation from a Chrome extension. Scrape a site, push the data to a sheet or CRM, trigger workflows. The low-code option for simple scraping jobs."
+    },
+    {
+      name: "Outscraper",
+      url: "https://outscraper.com",
+      badges: ["freemium"],
+      description: "Google Maps extraction: reviews, popular times, contact details, competitor data. Feed it Place IDs, get structured data back. Useful for local market research."
+    },
+    {
+      name: "Firecrawl",
+      url: "https://firecrawl.dev",
+      badges: ["freemium"],
+      description: "Turns any website into clean, LLM-ready markdown. Built for feeding competitor pages, job boards and news sites into an AI research pipeline."
+    }
   ]
 };
 
 export const backendTools: ToolCategory = {
-  label: "Lightweight Backends & Databases",
+  label: "Backends and databases",
+  intro: "Your tools need somewhere to keep data. These are cheap or free and take minutes to set up.",
   tools: [
-    [
-      {
-        name: "Supabase",
-        url: "https://supabase.com",
-        badges: ["free", "core"],
-        description: "Postgres database with auth, storage, and real-time out of the box. The backend for custom dashboards, partner portals, and internal tools. Firebase alternative that doesn't lock you in."
-      },
-      {
-        name: "Airtable",
-        url: "https://airtable.com",
-        badges: ["freemium"],
-        description: "Spreadsheet-database hybrid. Good for non-technical people who need structure without SQL. Limited at scale but fast to prototype pipeline tracking and campaign logs."
-      }
-    ],
-    [
-      {
-        name: "Neon",
-        url: "https://neon.tech",
-        badges: ["free", "new"],
-        description: "Serverless Postgres. Branches like Git, scales to zero, generous free tier. Real database without managing infrastructure. Good Supabase alternative if you don't need the extras."
-      },
-      {
-        name: "Google Sheets",
-        url: "https://sheets.google.com",
-        badges: ["free"],
-        description: "Don't underestimate it. With Apps Script, Sheets becomes a free API-connected database. For early-stage pipeline tracking, enrichment logging, and quick dashboards — genuinely enough."
-      }
-    ]
+    {
+      name: "Supabase",
+      url: "https://supabase.com",
+      badges: ["freemium", "core"],
+      description: "Postgres with auth, storage and realtime built in. The backend for custom dashboards, partner portals and internal tools. The free tier covers a lot."
+    },
+    {
+      name: "Airtable",
+      url: "https://airtable.com",
+      badges: ["freemium"],
+      description: "Spreadsheet-database hybrid. Structure without SQL. Limited at scale, but quick for tracking pipeline and campaign logs."
+    },
+    {
+      name: "Neon",
+      url: "https://neon.tech",
+      badges: ["freemium"],
+      description: "Serverless Postgres that branches like Git and scales to zero. A real database with nothing to manage. Good Supabase alternative if you don't need the extras."
+    },
+    {
+      name: "Google Sheets",
+      url: "https://sheets.google.com",
+      badges: ["free"],
+      description: "With Apps Script attached, Sheets is a free API-connected database. For early pipeline tracking, enrichment logs and quick dashboards it is genuinely enough."
+    }
   ]
 };
 
 export const crmTools: ToolCategory = {
-  label: "CRM & Pipeline Management",
+  label: "CRM and pipeline",
+  intro: "You still need a system of record. Pick one that stays out of your way.",
   tools: [
-    [
-      {
-        name: "Attio",
-        url: "https://attio.com",
-        badges: ["freemium", "new"],
-        description: "Modern CRM built for the way people actually work. Auto-syncs from email and calendar, flexible data model, great API. Built by people frustrated with Salesforce and HubSpot."
-      },
-      {
-        name: "Folk",
-        url: "https://folk.app",
-        badges: ["freemium"],
-        description: "Lightweight CRM for relationship management. Chrome extension pulls contacts from anywhere. Good for founders who want a CRM that doesn't feel like enterprise software."
-      }
-    ],
-    [
-      {
-        name: "HubSpot",
-        url: "https://hubspot.com",
-        badges: ["free"],
-        description: "Free tier is legitimately useful — contacts, deals, email tracking, basic reporting. Gets expensive fast but free CRM + Clay as the brain is a solid combo."
-      },
-      {
-        name: "Close",
-        url: "https://close.com",
-        badges: ["paid"],
-        description: "CRM built for outbound sales. Built-in calling, email, SMS. Best pipeline view for small teams doing high-velocity outbound. Feels built by salespeople, not enterprise architects."
-      }
-    ]
+    {
+      name: "Attio",
+      url: "https://attio.com",
+      badges: ["freemium"],
+      description: "Modern CRM with a flexible data model, auto-sync from email and calendar, and a proper API. Built by people who got fed up with Salesforce and HubSpot."
+    },
+    {
+      name: "Folk",
+      url: "https://folk.app",
+      badges: ["freemium"],
+      description: "Lightweight relationship CRM with a Chrome extension that pulls contacts from anywhere. Good for founders who don't want enterprise software."
+    },
+    {
+      name: "HubSpot",
+      url: "https://hubspot.com",
+      badges: ["freemium"],
+      description: "The free tier is genuinely useful: contacts, deals, email tracking, basic reporting. It gets expensive fast beyond that. Free HubSpot with Clay as the brain is a solid combination."
+    },
+    {
+      name: "Close",
+      url: "https://close.com",
+      badges: ["paid"],
+      description: "Built for outbound. Calling, email and SMS inside the product, and the best pipeline view for a small team doing volume. Feels made by salespeople, not enterprise architects."
+    }
   ]
 };
 
 export const landingTools: ToolCategory = {
-  label: "Landing Pages & Creative",
+  label: "Landing pages and creative",
+  intro: "Claim testing needs pages and ads out the door in hours, not weeks.",
   tools: [
-    [
-      {
-        name: "Framer",
-        url: "https://framer.com",
-        badges: ["freemium"],
-        description: "Design-to-production website builder. Publish fast, iterate faster. AI features generate layouts and copy. Ideal for the \"25 landing pages in one night\" approach."
-      },
-      {
-        name: "Webflow",
-        url: "https://webflow.com",
-        badges: ["freemium"],
-        description: "Visual web builder with CMS. More powerful than Framer for complex sites, steeper curve. Good if landing pages need dynamic content or blog posts."
-      }
-    ],
-    [
-      {
-        name: "Carrd",
-        url: "https://carrd.co",
-        badges: ["free"],
-        description: "Dead simple one-page sites. €19/year for pro. Test a claim with a headline, subhead, and CTA live in 5 minutes. Zero friction."
-      },
-      {
-        name: "CapCut",
-        url: "https://capcut.com",
-        badges: ["free"],
-        description: "Video editing for ad creative. UGC-style content shot on your phone and edited in CapCut outperforms polished brand creative in paid ads. Every time."
-      }
-    ],
-    [
-      {
-        name: "HeyGen",
-        url: "https://heygen.com",
-        badges: ["paid", "new"],
-        description: "AI video avatars. Personalised video messages at scale without recording yourself 500 times. Controversial but results are getting good enough to test."
-      },
-      {
-        name: "ElevenLabs",
-        url: "https://elevenlabs.io",
-        badges: ["paid"],
-        description: "AI voice generation. Clone your voice, produce audio at scale. Voicemail drops, podcast content, voice notes for outreach. Quality now indistinguishable from real recordings."
-      }
-    ]
+    {
+      name: "Framer",
+      url: "https://framer.com",
+      badges: ["freemium"],
+      description: "Design-to-live website builder. Publish fast, iterate faster. The right tool for shipping a pile of landing page variants in one night."
+    },
+    {
+      name: "Webflow",
+      url: "https://webflow.com",
+      badges: ["freemium"],
+      description: "More powerful than Framer, steeper learning curve. Pick it when your pages need a CMS or dynamic content."
+    },
+    {
+      name: "Carrd",
+      url: "https://carrd.co",
+      badges: ["freemium"],
+      description: "One-page sites, €19 a year for pro. Headline, subhead, CTA, live in five minutes. The cheapest way to put a claim in front of real traffic."
+    },
+    {
+      name: "CapCut",
+      url: "https://capcut.com",
+      badges: ["free"],
+      description: "Free video editing. Phone-shot, UGC-style ads edited in CapCut beat polished brand creative in paid social, consistently."
+    },
+    {
+      name: "HeyGen",
+      url: "https://heygen.com",
+      badges: ["paid"],
+      description: "AI video avatars. Personalised video at scale without recording yourself 500 times. Feels odd, but the results are good enough to test."
+    },
+    {
+      name: "ElevenLabs",
+      url: "https://elevenlabs.io",
+      badges: ["paid"],
+      description: "Voice cloning and generation. Voicemail drops, voice notes and audio content at scale. The quality is now hard to tell from a real recording."
+    }
   ]
 };
 
 export const analyticsTools: ToolCategory = {
-  label: "Analytics & Tracking",
+  label: "Analytics and tracking",
+  intro: "If you're testing claims, you need to see what people actually do on the page.",
   tools: [
-    [
-      {
-        name: "PostHog",
-        url: "https://posthog.com",
-        badges: ["free"],
-        description: "Product analytics, session replay, feature flags, A/B testing. Open source, self-hostable. Modern alternative to Mixpanel/Amplitude. Generous free tier."
-      },
-      {
-        name: "Hotjar",
-        url: "https://hotjar.com",
-        badges: ["freemium"],
-        description: "Heatmaps and session recordings. See exactly where people click, scroll, and drop off. Essential for the claim-testing loop — the data tells you why a page isn't converting."
-      }
-    ],
-    [
-      {
-        name: "Meta Pixel + CAPI",
-        url: "https://developers.facebook.com/docs/marketing-api/conversions-api",
-        badges: ["free", "diy"],
-        description: "Server-side conversion tracking for Facebook/Instagram ads. Without CAPI, you're flying blind on attribution. Track leads, purchases, custom events. Worth the setup."
-      },
-      {
-        name: "Plausible",
-        url: "https://plausible.io",
-        badges: ["paid"],
-        description: "Privacy-friendly lightweight analytics. No cookie banners needed. Simple dashboard, metrics that matter. Good enough for landing page testing when you don't need PostHog's depth."
-      }
-    ]
+    {
+      name: "PostHog",
+      url: "https://posthog.com",
+      badges: ["freemium"],
+      description: "Product analytics, session replay, feature flags and A/B testing in one, with a generous free tier. Open source and self-hostable."
+    },
+    {
+      name: "Hotjar",
+      url: "https://hotjar.com",
+      badges: ["freemium"],
+      description: "Heatmaps and session recordings. Shows where people click, scroll and give up, which tells you why a page isn't converting."
+    },
+    {
+      name: "Meta Pixel + Conversions API",
+      url: "https://developers.facebook.com/docs/marketing-api/conversions-api",
+      badges: ["free"],
+      description: "Server-side conversion tracking for Meta ads. Without it your attribution is guesswork. Track leads, purchases and custom events. Worth the setup time."
+    },
+    {
+      name: "Plausible",
+      url: "https://plausible.io",
+      badges: ["paid"],
+      description: "Lightweight, privacy-friendly analytics with no cookie banner. Enough for landing page tests when you don't need PostHog's depth."
+    }
   ]
 };
 
-export const signalTools: Tool[][] = [
-  [
+export const signalTools: ToolCategory = {
+  label: "Signal sources",
+  intro: "The difference between a list and a signal is timing. These tell you who to contact this week, and why.",
+  tools: [
     {
       name: "Common Room",
       url: "https://commonroom.io",
       badges: ["paid"],
-      description: "Aggregates buying signals from community activity, product usage, social, and job changes into one feed. The single pane of glass for intent data."
+      description: "Pulls buying signals from community activity, product usage, social and job changes into one feed you can act on."
     },
     {
       name: "LinkedIn Sales Navigator",
       url: "https://linkedin.com/sales",
       badges: ["paid"],
-      description: "Still the richest B2B signal source. Saved searches, lead recommendations, InMail. Combine with PhantomBuster or Captain Data for automation."
-    }
-  ],
-  [
+      description: "Still the richest B2B signal source: saved searches, lead recommendations, job change alerts. Automate it with PhantomBuster or Captain Data."
+    },
     {
       name: "BuiltWith / Wappalyzer",
       url: "https://builtwith.com",
       badges: ["freemium"],
-      description: "Technographic triggers. Someone installs a competitor's tool? You're in their inbox with context. BuiltWith for deep history, Wappalyzer for live detection."
+      description: "Technographics. When a target installs a competitor's tool, you know, and you show up with context. BuiltWith for deep history, Wappalyzer for live detection."
     },
     {
-      name: "Google Alerts + RSS → n8n",
+      name: "Google Alerts + RSS into n8n",
       url: "https://google.com/alerts",
       badges: ["free"],
-      description: "Custom signal capture for anything off-the-shelf tools miss. Funding announcements, hiring posts, product launches. Free. Pipe into your automation layer."
-    }
-  ],
-  [
+      description: "Free signal capture for anything the paid tools miss: funding announcements, hiring posts, product launches. Pipe the alerts into your automation layer."
+    },
     {
       name: "Trigify",
       url: "https://trigify.io",
-      badges: ["paid", "new"],
-      description: "LinkedIn signal monitoring. Track when prospects change jobs, post about specific topics, engage with competitors, or hit growth milestones. Triggers outreach at the right moment."
+      badges: ["paid"],
+      description: "LinkedIn monitoring. Job changes, posts on chosen topics, engagement with competitors, growth milestones. Triggers your outreach at the right moment."
     },
     {
       name: "Leadfeeder (Dealfront)",
       url: "https://dealfront.com",
       badges: ["paid"],
-      description: "Website visitor de-anonymization. See which companies visit your site, what pages they view, how often. Know who's looking before they fill out a form."
-    }
-  ],
-  [
+      description: "Tells you which companies visit your site, what they read and how often, before anyone fills in a form."
+    },
     {
       name: "Bombora",
       url: "https://bombora.com",
       badges: ["paid"],
-      description: "B2B intent data at scale. Tracks which companies research specific topics across the web. Expensive but powerful for targeting accounts in active buying cycles."
+      description: "B2B intent data at scale. Tracks which companies are researching specific topics across the web. Expensive, but strong for finding accounts already in a buying cycle."
     },
     {
       name: "G2 Buyer Intent",
       url: "https://sell.g2.com",
       badges: ["paid"],
-      description: "See which companies research your category and competitors on G2. High-quality signal — someone is literally comparing tools in your space."
-    }
-  ],
-  [
+      description: "Shows which companies are comparing you and your competitors on G2. Someone reading category reviews is about as warm as intent gets."
+    },
     {
       name: "Sumble",
       url: "https://sumble.com",
-      badges: ["paid", "new"],
-      description: "AI-powered sales intelligence from the Kaggle founders. Tracks tech stacks, projects, and org charts across 2.6M+ companies. Surfaces buyer intent signals from job boards, filings, and social. Clean data, daily updates."
+      badges: ["paid"],
+      description: "Sales intelligence from the Kaggle founders. Tech stacks, projects and org charts across 2.6M+ companies, with signals pulled from job boards, filings and social. Clean data, updated daily."
     }
   ]
-];
+};
 
 export const coldEmailTools: ToolCategory = {
-  label: "Cold Email Infrastructure",
+  label: "Cold email infrastructure",
+  intro: "Deliverability is infrastructure. Get this wrong and nothing else in your outbound matters.",
   tools: [
-    [
-      {
-        name: "Instantly",
-        url: "https://instantly.ai",
-        badges: ["paid"],
-        description: "High-volume cold email. Unlimited accounts, automated warmup, smart rotation, deliverability dashboard. The default for serious outbound email."
-      },
-      {
-        name: "Smartlead",
-        url: "https://smartlead.ai",
-        badges: ["paid"],
-        description: "Instantly competitor with better multi-channel features. Unified inbox, sub-sequences, API access. More technical setup but more flexible at scale."
-      }
-    ],
-    [
-      {
-        name: "Lemlist",
-        url: "https://lemlist.com",
-        badges: ["paid"],
-        description: "Cold email with personalised images and videos. Liquid syntax for deep personalisation. Good middle ground between volume and quality."
-      },
-      {
-        name: "Mailforge / Mailscale",
-        url: "https://mailforge.ai",
-        badges: ["paid"],
-        description: "Bulk domain and mailbox setup. Spin up dozens of sending domains and accounts in minutes. The infrastructure behind high-volume cold email. Pairs with Instantly/Smartlead."
-      }
-    ]
+    {
+      name: "Instantly",
+      url: "https://instantly.ai",
+      badges: ["paid"],
+      description: "The default for volume cold email. Unlimited sending accounts, automated warmup, smart rotation and a deliverability dashboard."
+    },
+    {
+      name: "Smartlead",
+      url: "https://smartlead.ai",
+      badges: ["paid"],
+      description: "Instantly's main competitor, with better multi-channel features, a unified inbox and API access. More setup, more flexibility at scale."
+    },
+    {
+      name: "Lemlist",
+      url: "https://lemlist.com",
+      badges: ["paid"],
+      description: "Cold email with personalised images and video, and liquid syntax for deep personalisation. A middle ground between volume and quality."
+    },
+    {
+      name: "Mailforge / Mailscale",
+      url: "https://mailforge.ai",
+      badges: ["paid"],
+      description: "Bulk domain and mailbox setup. Dozens of sending domains and accounts in minutes. The plumbing behind high-volume cold email. Pair it with Instantly or Smartlead."
+    }
   ]
 };
 
 export const multiChannelTools: ToolCategory = {
-  label: "Multi-Channel Sequencing",
+  label: "Multi-channel sequencing",
+  intro: "Email on its own is noisy. These coordinate LinkedIn, email and other channels in one sequence.",
   tools: [
-    [
-      {
-        name: "La Growth Machine",
-        url: "https://lagrowthmachine.com",
-        badges: ["paid"],
-        description: "LinkedIn + email + Twitter in coordinated sequences. If-then branching based on engagement. European company, good GDPR awareness."
-      },
-      {
-        name: "Heyreach",
-        url: "https://heyreach.io",
-        badges: ["paid"],
-        description: "LinkedIn automation at scale. Rotate across multiple accounts, coordinate campaigns, track engagement. Built for high-volume LinkedIn outreach."
-      }
-    ],
-    [
-      {
-        name: "Expandi",
-        url: "https://expandi.io",
-        badges: ["paid"],
-        description: "Cloud-based LinkedIn automation. Smart sequences, auto-warmup, CRM integration. Safer than browser extensions for LinkedIn automation."
-      },
-      {
-        name: "WhatsApp Business API",
-        url: "https://business.whatsapp.com",
-        badges: ["paid", "diy"],
-        description: "For the right audience, WhatsApp massively outperforms email. Template messages, interactive flows, direct conversation. Not for everyone — devastating when it fits."
-      }
-    ]
+    {
+      name: "La Growth Machine",
+      url: "https://lagrowthmachine.com",
+      badges: ["paid"],
+      description: "LinkedIn, email and X in coordinated sequences, with if-then branching based on engagement. European company, takes GDPR seriously."
+    },
+    {
+      name: "Heyreach",
+      url: "https://heyreach.io",
+      badges: ["paid"],
+      description: "LinkedIn automation at scale. Rotate across multiple accounts, coordinate campaigns, track engagement."
+    },
+    {
+      name: "Expandi",
+      url: "https://expandi.io",
+      badges: ["paid"],
+      description: "Cloud-based LinkedIn automation with smart sequences, warmup and CRM integration. Safer than browser extensions."
+    },
+    {
+      name: "WhatsApp Business API",
+      url: "https://business.whatsapp.com",
+      badges: ["paid"],
+      description: "For the right audience, WhatsApp beats email by a wide margin. Template messages, interactive flows, real conversations. Not for every market, but where it fits, it wins."
+    }
   ]
 };
 
 export const adsTools: ToolCategory = {
-  label: "Ads & Paid Acquisition",
+  label: "Ads and paid acquisition",
+  intro: "Paid channels are the fastest way to test claims and capture demand that already exists.",
   tools: [
-    [
-      {
-        name: "Meta Ads + Rapid Creative Testing",
-        url: "https://facebook.com/business/ads",
-        badges: ["diy"],
-        description: "10–20 ad variations per week. Kill anything that hasn't hit CPA benchmarks after 2–3x target spend. UGC-style content always outperforms polished brand creative. Always."
-      },
-      {
-        name: "Google Ads",
-        url: "https://ads.google.com",
-        badges: ["paid"],
-        description: "Capture existing demand via search. Best for high-intent keywords where people are actively looking. Complement with Performance Max for broader reach."
-      }
-    ],
-    [
-      {
-        name: "LinkedIn Ads",
-        url: "https://linkedin.com/ad",
-        badges: ["paid"],
-        description: "Expensive per click but unmatched B2B targeting — job title, company size, industry, seniority. Best for high-ACV products where one lead justifies the spend."
-      },
-      {
-        name: "Synthflow / Bland.ai",
-        url: "https://synthflow.ai",
-        badges: ["paid", "new"],
-        description: "AI voice agents for cold calling at scale. Controversial but real. Best for qualification and booking, not closing. Test carefully, monitor quality."
-      }
-    ]
+    {
+      name: "Meta Ads",
+      url: "https://facebook.com/business/ads",
+      badges: ["paid"],
+      description: "Run 10 to 20 creative variations a week. Kill anything that misses your CPA target after two to three times target spend. UGC-style creative wins."
+    },
+    {
+      name: "Google Ads",
+      url: "https://ads.google.com",
+      badges: ["paid"],
+      description: "Capture existing demand on search. Best for high-intent keywords where people are already looking for a solution."
+    },
+    {
+      name: "LinkedIn Ads",
+      url: "https://linkedin.com/ad",
+      badges: ["paid"],
+      description: "Expensive per click, but unmatched B2B targeting by job title, company size, industry and seniority. Only makes sense for high-ACV products."
+    },
+    {
+      name: "Synthflow / Bland.ai",
+      url: "https://synthflow.ai",
+      badges: ["paid"],
+      description: "AI voice agents for outbound calls. Use them for qualification and booking, not closing, and listen to the recordings."
+    }
   ]
 };
 
-export interface MethodologyStep {
-  number: string;
+export interface WorkflowStep {
   title: string;
   description: string;
-  color: 'cyan' | 'green' | 'amber' | 'pink' | 'purple' | 'red';
 }
 
-export const methodologySteps: MethodologyStep[] = [
+export const workflowSteps: WorkflowStep[] = [
   {
-    number: "01",
-    title: "Signals > Lists",
-    description: "Don't build a list of 10k accounts. Build a system that surfaces 20 high-intent accounts per day with context. Job changes, tech installs, funding rounds, hiring signals — engineer the triggers.",
-    color: "cyan"
+    title: "Spot the signal",
+    description: "Job changes, funding rounds, tech installs, hiring. 20 high-intent accounts a day beats a list of 10,000."
   },
   {
-    number: "02",
-    title: "Claim Testing at Speed",
-    description: "4 days testing, 1 day collating and arguing. The \"nos\" tell you which claim works. Rewrite and retest. Build 10–20 ad/landing page variations per week. Speed beats perfection — you're looking for signals, not masterpieces.",
-    color: "green"
+    title: "Research with AI",
+    description: "Before any touch, your stack already knows what they do, what tools they run and what probably hurts."
   },
   {
-    number: "03",
-    title: "AI Research Before Every Touch",
-    description: "Before you cold call someone, your AI stack has already told you what their business does, what tools they use, and what their likely pain is. That research used to be someone's entire job.",
-    color: "amber"
+    title: "Reach out",
+    description: "WhatsApp, LinkedIn DMs, a call with real context. Not another templated email into the void."
   },
   {
-    number: "04",
-    title: "Channel Where They Are",
-    description: "Email is noisy. WhatsApp, LinkedIn DMs, and cold calls with real context convert at a fundamentally different rate. Message people where they actually respond — with something that references their real problems.",
-    color: "pink"
+    title: "Test claims fast",
+    description: "10 to 20 page and ad variants a week. The nos tell you which claim works. Hook rate first, then CTR, then CPA."
   },
   {
-    number: "05",
-    title: "Prompt-as-Product",
-    description: "The best GTM engineers have proprietary prompts that do account research, write personalised hooks, and score ICP fit better than any off-the-shelf tool. These prompts ARE the IP. Version control them. Iterate weekly. They compound.",
-    color: "purple"
-  },
-  {
-    number: "06",
-    title: "Composability Over Monoliths",
-    description: "Same as early DevOps. Outreach, Salesloft, HubSpot sequences — those are the old \"ops team runs the servers.\" GTM engineers assemble bespoke stacks the way DevOps engineers assembled CI/CD pipelines. Best-of-breed, glued together, swappable.",
-    color: "red"
-  },
-  {
-    number: "07",
-    title: "Distribution Through Partners",
-    description: "Don't just do outbound — engineer distribution. Find partners whose customers are your customers. Build dashboards and tools they can use. If a supplier or accountant is pushing your product because it makes their life easier, that's pull, not push.",
-    color: "cyan"
-  },
-  {
-    number: "08",
-    title: "Build the Internal Tools",
-    description: "The \"engineer\" in GTM Engineer means you build what doesn't exist. A dashboard to track campaign performance. An export tool for a partner. A scoring model for ICP fit. Stop waiting for product/eng — use Cursor, Supabase, and ship it yourself.",
-    color: "green"
-  },
-  {
-    number: "09",
-    title: "Diagnostic Metrics Hierarchy",
-    description: "Hook rate → CTR → CPA → ROAS. Diagnose problems in that order. Bad hook rate = creative problem. Good hook but bad CTR = offer problem. Good CTR but bad CPA = landing page problem. Always know which lever to pull.",
-    color: "amber"
-  },
-  {
-    number: "10",
-    title: "Understand Before You Delegate",
-    description: "Spend time doing GTM yourself. Build the pages. Write the outreach. Make the calls. Track what converts. When you understand what works, you can systematize it, automate it, or hand it off with clear success criteria.",
-    color: "pink"
+    title: "Automate what works",
+    description: "Version your prompts, build the missing tools, wire signal to outreach. Only automate what's proven."
   }
 ];
 
@@ -642,16 +547,16 @@ export interface AntiPattern {
 
 export const antiPatterns: AntiPattern[] = [
   {
-    title: "Spray-and-pray at scale",
-    description: "More emails ≠ more pipeline. Signal-driven outbound at lower volume converts 5–10x better."
+    title: "Spray and pray at scale",
+    description: "More emails does not mean more pipeline. Signal-driven outbound at lower volume converts 5 to 10 times better."
   },
   {
-    title: "Tools before methodology",
-    description: "Spend 2+ weeks doing GTM yourself first. Build pages, write outreach, make calls, track what converts. Then buy tools for the bottlenecks."
+    title: "Tools before method",
+    description: "Spend two weeks doing GTM by hand first. Build pages, write outreach, make calls, track what converts. Then buy tools for the bottlenecks you actually hit."
   },
   {
     title: "Copying playbooks blindly",
-    description: "What worked for a Series B company with 50 reps won't work for you. Build your own playbook based on what actually converts in your market."
+    description: "What worked for a Series B company with 50 reps won't work for you. Build your own playbook from what converts in your market."
   },
   {
     title: "Over-automating too early",
@@ -659,11 +564,11 @@ export const antiPatterns: AntiPattern[] = [
   },
   {
     title: "Ignoring deliverability",
-    description: "Your brilliant AI-written email means nothing in spam. Warm your domains, authenticate SPF/DKIM/DMARC, monitor reputation. Infrastructure before creativity."
+    description: "Your best email means nothing in spam. Warm your domains, set up SPF, DKIM and DMARC, watch your sender reputation. Infrastructure before creativity."
   },
   {
     title: "Data without action",
-    description: "A Clay table with 10k enriched rows is worthless if nobody's messaging them. Build the action into the pipeline, not after it."
+    description: "A Clay table with 10,000 enriched rows is worthless if nobody messages them. Build the action into the pipeline, not after it."
   }
 ];
 
@@ -671,32 +576,27 @@ export interface WeeklyStep {
   week: number;
   title: string;
   description: string;
-  borderColor: string;
 }
 
 export const weeklySteps: WeeklyStep[] = [
   {
     week: 1,
     title: "Foundation",
-    description: "Sign up for Clay (free tier). Build one enrichment table: 50 target accounts, enrich with company data, tech stack, recent news. Write a Google Apps Script that pulls company info into a spreadsheet. Send 10 personalised messages using what you found. Track every response.",
-    borderColor: "border-accent/20"
+    description: "Sign up for Clay on the free tier. Build one enrichment table: 50 target accounts, enriched with company data, tech stack and recent news. Write a Google Apps Script that pulls company info into a spreadsheet. Send 10 personalised messages using what you found. Track every response."
   },
   {
     week: 2,
     title: "Signals",
-    description: "Set up 3 signal sources: Google Alerts for your ICP keywords, LinkedIn Sales Navigator saved searches, and one technographic trigger (BuiltWith or Wappalyzer). Connect them to a central sheet or Clay table. Start building your daily feed of high-intent accounts.",
-    borderColor: "border-green/20"
+    description: "Set up three signal sources: Google Alerts for your ICP keywords, LinkedIn Sales Navigator saved searches, and one technographic trigger like BuiltWith or Wappalyzer. Connect them to a central sheet or Clay table. Start building your daily feed of high-intent accounts."
   },
   {
     week: 3,
     title: "Velocity",
-    description: "Build 5 landing pages with different claims for the same ICP (use Framer, Carrd, or v0). Run traffic to all of them (even €5/day each). Build an n8n or Make workflow connecting signal → enrichment → notification. You now have a pipeline machine, not a pipeline process.",
-    borderColor: "border-amber/20"
+    description: "Build five landing pages with different claims for the same ICP, using Framer, Carrd or v0. Run traffic to all of them, even at €5 a day each. Build an n8n or Make workflow that connects signal to enrichment to notification. You now have a pipeline machine, not a pipeline process."
   },
   {
     week: 4,
     title: "Compound",
-    description: "Write 3 proprietary prompts: account research, personalised first lines, ICP scoring. Version them. A/B test outputs. Set up Instantly or Smartlead for email infrastructure. Connect everything: signals feed Clay, Clay feeds AI enrichment, AI feeds outreach. You're now a GTM engineer.",
-    borderColor: "border-pink/20"
+    description: "Write three prompts of your own: account research, personalised first lines, ICP scoring. Version them and A/B test the outputs. Set up Instantly or Smartlead for email infrastructure. Connect everything: signals feed Clay, Clay feeds AI enrichment, AI feeds outreach. You're now a GTM engineer."
   }
 ];

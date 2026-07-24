@@ -1,52 +1,46 @@
-type Color = 'cyan' | 'green' | 'amber' | 'pink' | 'purple' | 'red';
-
-const dotColors: Record<Color, string> = {
-  cyan: 'bg-accent',
-  green: 'bg-green',
-  amber: 'bg-amber',
-  pink: 'bg-pink',
-  purple: 'bg-purple',
-  red: 'bg-red',
-};
-
-const textColors: Record<Color, string> = {
-  cyan: 'text-accent',
-  green: 'text-green',
-  amber: 'text-amber',
-  pink: 'text-pink',
-  purple: 'text-purple',
-  red: 'text-red',
-};
-
-export function Section({ children }: { children: React.ReactNode }) {
-  return <div className="mb-12">{children}</div>;
+export function Band({
+  id,
+  tone,
+  children,
+}: {
+  id?: string;
+  tone?: 'surface';
+  children: React.ReactNode;
+}) {
+  return (
+    <section
+      id={id}
+      className={`scroll-mt-24 ${tone === 'surface' ? 'bg-surface border-y border-border' : ''}`}
+    >
+      <div className="max-w-[820px] mx-auto px-6 py-14 md:py-16">{children}</div>
+    </section>
+  );
 }
 
-export function SectionLabel({ number, label, color }: { number: string; label: string; color: Color }) {
+export function SectionHeading({ title, lede }: { title: string; lede?: string }) {
   return (
-    <div className={`font-mono text-[11px] tracking-[0.1em] uppercase mb-5 flex items-center gap-2.5 ${textColors[color]}`}>
-      <span className={`w-1.5 h-1.5 rounded-full ${dotColors[color]}`} />
-      {number} — {label}
+    <div className="mb-8">
+      <div className="w-12 h-[3px] bg-accent rounded-full mb-4" />
+      <h2 className="text-[26px] font-bold tracking-tight">{title}</h2>
+      {lede && <p className="text-[15px] text-text-dim mt-2 max-w-[620px]">{lede}</p>}
     </div>
   );
 }
 
-export function SubLabel({ children }: { children: React.ReactNode }) {
+export function CategoryHeading({ label, intro }: { label: string; intro?: string }) {
   return (
-    <div className="font-mono text-[10px] tracking-[0.08em] uppercase text-text-muted mt-6 mb-3 pl-0.5 first:mt-0">
-      {children}
+    <div className="mt-12 mb-2 first:mt-0">
+      <div className="w-7 h-[3px] bg-accent rounded-full mb-3" />
+      <h3 className="text-base font-semibold">{label}</h3>
+      {intro && <p className="text-sm text-text-muted mt-0.5">{intro}</p>}
     </div>
   );
-}
-
-export function Divider() {
-  return <div className="h-px bg-border my-12" />;
 }
 
 export function Callout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-surface-2 border-l-[3px] border-accent py-5 px-6 rounded-r-lg my-6">
-      <p className="text-[15px] text-text-dim italic">{children}</p>
+    <div className="bg-accent-dim border-l-2 border-accent py-4 px-5 rounded-r-lg mb-8">
+      <p className="text-[15px] text-text-dim leading-relaxed">{children}</p>
     </div>
   );
 }
